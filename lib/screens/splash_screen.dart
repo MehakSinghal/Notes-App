@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-  Future<void> fetchData() async {
+  void fetchData() async {
     setState(() {
       _isLoading = true;
     });
