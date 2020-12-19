@@ -9,7 +9,7 @@ class Note{
 
   Note({this.title, this.description, this.id});
 
-  Future<void> add(Note editedForm , BuildContext context) async{
+  static Future<void> add(Note editedForm , BuildContext context) async{
     final url = "https://notesapp-235b2.firebaseio.com/note.json";
     final response = await http.post(url,
         body: json.encode({
@@ -19,7 +19,7 @@ class Note{
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => SplashScreen()));
   }
-  Future<void> update(Note editedForm, var id , BuildContext context) async{
+  static Future<void> update(Note editedForm, var id , BuildContext context) async{
     final url = "https://notesapp-235b2.firebaseio.com/note/$id.json";
     final response = await http.patch(url,
         body: json.encode({
@@ -30,7 +30,7 @@ class Note{
         context, MaterialPageRoute(builder: (context) => SplashScreen()));
   }
 
-  Future<void> delete(String id, BuildContext context) async{
+  static Future<void> delete(String id, BuildContext context) async{
     if(id == null){
       Navigator.of(context).pop();
     }

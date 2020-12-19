@@ -1,10 +1,6 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:NotesApp/provider/note.dart';
-import 'package:NotesApp/screens/all_notes_screen.dart';
-import 'package:NotesApp/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:connectivity/connectivity.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -65,13 +61,10 @@ class _NewNoteScreenState extends State<NewNoteScreen> {
   void saveForm(bool x) async {
     if(x){
       if (widget.note == null) {
-        Note n = new Note();
-        n.add(_editedForm , context);
+        Note.add(_editedForm , context);
       } else {
         String id = widget.note.id;
-        Note n = new Note();
-        print("id "+id);
-        n.update(_editedForm, id , context);
+        Note.update(_editedForm, id , context);
       }
 
     }
@@ -213,8 +206,7 @@ class _NewNoteScreenState extends State<NewNoteScreen> {
                   color: Color.fromRGBO(255, 211, 37, 1),
                   child: Text('DELETE NOTE',style: TextStyle(color: Colors.white),),
                   onPressed: (){
-                    Note n = new Note();
-                    n.delete(widget.note.id, context);
+                    Note.delete(widget.note.id, context);
                   },
                 ),
               ],

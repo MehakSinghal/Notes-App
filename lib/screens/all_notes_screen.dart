@@ -75,8 +75,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
     if(contents.isNotEmpty){
       print("mehak");
       var parts = contents.split("^");
-      Note n = new Note();
-      n.add(Note(
+      Note.add(Note(
         id: null,
         title: parts[0],
         description: parts[1],
