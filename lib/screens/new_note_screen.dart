@@ -20,9 +20,10 @@ class NewNoteScreen extends StatefulWidget {
 
 class _NewNoteScreenState extends State<NewNoteScreen> {
   final _form = GlobalKey<FormState>();
+  var subscription;
   @override
   void initState() {
-    var subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+    subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
       if(result == ConnectivityResult.mobile || result == ConnectivityResult.wifi){
         checkConnectivity();
       }
@@ -79,26 +80,36 @@ class _NewNoteScreenState extends State<NewNoteScreen> {
       final dirPath = directory.path;
       File file = File('$dirPath/note');
       if(widget.note == null){
-        file.writeAsString("0"+"#"+_editedForm.title+"^"+_editedForm.description);   //padded 0 if its a new note
+        file.writeAsString(_editedForm.title+"^"+_editedForm.description);
+        showDialog(context: context, builder: (ctx)=> AlertDialog(
+          title: Text('NO INTERNET CONNECTION', style: TextStyle(color:Color.fromRGBO(255, 211, 37, 1) ),),
+          content: Text('Your note has been saved locally. It will be saved to the internet when you will have a network connection.'),
+          actions: [
+            FlatButton(
+              child: Text('OKAY',style: TextStyle(color:Color.fromRGBO(255, 211, 37, 1))),
+              onPressed: (){
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        ));
       }
       else{
-        file.writeAsString("1"+"#"+_editedForm.title+"^"+_editedForm.description);   //padded 1 if an old note is being updated
+        showDialog(context: context, builder: (ctx)=> AlertDialog(
+          title: Text('NO INTERNET CONNECTION', style: TextStyle(color:Color.fromRGBO(255, 211, 37, 1) ),),
+          content: Text('Your note cannot be updated. Try after some time.'),
+          actions: [
+            FlatButton(
+              child: Text('OKAY',style: TextStyle(color:Color.fromRGBO(255, 211, 37, 1))),
+              onPressed: (){
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        ));
       }
-      showDialog(context: context, builder: (ctx)=> AlertDialog(
-        title: Text('NO INTERNET CONNECTION', style: TextStyle(color:Color.fromRGBO(255, 211, 37, 1) ),),
-        content: Text('Your note has been saved locally. It will be saved to the internet when you will have a network connection.'),
-        actions: [
-          FlatButton(
-            child: Text('OKAY',style: TextStyle(color:Color.fromRGBO(255, 211, 37, 1))),
-            onPressed: (){
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-            },
-          )
-        ],
-      ));
-     /* String contents = await file.readAsString();
-      print(contents);*/
     }
 
   }

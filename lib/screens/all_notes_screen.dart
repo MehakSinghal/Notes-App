@@ -55,10 +55,10 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
                 ],
               ));
     }
-
+    var subscription;
     @override
   void initState() {
-      var subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
         if(result == ConnectivityResult.mobile || result == ConnectivityResult.wifi){
           checkConnectivity();
         }
@@ -71,27 +71,19 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
     final dirPath = directory.path;
     File file = File('$dirPath/note');
     String contents = await file.readAsString();
-    var parts = contents.split("#");
-    if(parts[0] == "0"){
-      var p = parts[1].split("^");
+    file.delete();
+    if(contents.isNotEmpty){
+      print("mehak");
+      var parts = contents.split("^");
       Note n = new Note();
       n.add(Note(
         id: null,
-        title: p[0],
-        description: p[1],
+        title: parts[0],
+        description: parts[1],
       ),context);
     }
-    else{
-      /*var p = parts[1].split("^");
-      Note n = new Note();
-      n.update(Note(
-        id: null,
-        title: p[0],
-        description: p[1],
-      ),context);*/
-    }
-
   }
+
     @override
     Widget build(BuildContext context) {
       return WillPopScope(
