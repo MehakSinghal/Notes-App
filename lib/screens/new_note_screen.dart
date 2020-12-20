@@ -16,16 +16,6 @@ class NewNoteScreen extends StatefulWidget {
 
 class _NewNoteScreenState extends State<NewNoteScreen> {
   final _form = GlobalKey<FormState>();
-  var subscription;
-  @override
-  void initState() {
-    subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      if(result == ConnectivityResult.mobile || result == ConnectivityResult.wifi){
-        checkConnectivity();
-      }
-    });
-    super.initState();
-  }
 
   Future<bool> check() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
