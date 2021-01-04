@@ -170,7 +170,7 @@ class _NewNoteScreenState extends State<NewNoteScreen> {
                         widget.note != null ? widget.note.description : "",
                     cursorColor: Color.fromRGBO(255, 211, 37, 1),
                     maxLines: 30,
-                    textInputAction: TextInputAction.done,
+                    textInputAction: TextInputAction.newline,
                     decoration: InputDecoration(
                       hintText: "What's on your mind",
                       border: InputBorder.none,

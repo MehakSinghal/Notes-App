@@ -24,6 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     var url = "https://notesapp-235b2.firebaseio.com/note.json";
     final response = await http.get(url);
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    print(extractedData);
     if (extractedData == null) {
       print("NO");
     } else {
