@@ -61,7 +61,7 @@ class _NewNoteScreenState extends State<NewNoteScreen> {
     else{
       final directory = await getApplicationDocumentsDirectory();
       final dirPath = directory.path;
-      File file = File('$dirPath/note');
+      File file = File('$dirPath/page');
       if(widget.note == null){
         file.writeAsString(_editedForm.title+"^"+_editedForm.description);
         showDialog(context: context, builder: (ctx)=> AlertDialog(

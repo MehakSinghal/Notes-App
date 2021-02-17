@@ -69,9 +69,9 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
   void checkConnectivity()async{
     final directory = await getApplicationDocumentsDirectory();
     final dirPath = directory.path;
-    File file = File('$dirPath/note');
+    File file = File('$dirPath/page');
     String contents = await file.readAsString();
-    file.delete();
+    await file.writeAsString("");
     if(contents.isNotEmpty){
       print("mehak");
       var parts = contents.split("^");
